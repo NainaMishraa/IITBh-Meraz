@@ -117,6 +117,7 @@ export default function App() {
   }, [setStartOpen]);
 
   const wallpaperColor: Record<string, string> = {
+    lightgrey: '#d0d0d0',
     teal: '#008080',
     bitcoin: '#ff8c00',
     black: '#001100',

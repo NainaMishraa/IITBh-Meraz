@@ -158,7 +158,7 @@ export const useOSStore = create<OSStore>((set, get) => ({
   setFS: (fs) => { saveFS(fs); set({ fs }); },
   setRecycleBin: (rb) => { saveRecycleBin(rb); set({ recycleBin: rb }); },
 
-  wallpaper: 'teal',
+  wallpaper: 'lightgrey',
   setWallpaper: (w) => set({ wallpaper: w }),
 
   bsodActive: false,
