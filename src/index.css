@@ -1,0 +1,173 @@
+/* Win98 OS Global Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, 'Microsoft Sans Serif', sans-serif;
+}
+
+/* Cursor */
+* {
+  cursor: default;
+}
+
+input, textarea, button, a {
+  cursor: default;
+}
+
+button {
+  cursor: pointer !important;
+}
+
+/* Win98 window chrome overrides for 98.css */
+.win98-window {
+  display: flex;
+  flex-direction: column;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 2px 2px 0 #000, inset 1px 1px 0 #dfdfdf;
+  overflow: hidden;
+}
+
+.win98-window.focused {
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.4), inset 1px 1px 0 #dfdfdf;
+}
+
+.win98-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 4px;
+  min-height: 22px;
+  user-select: none;
+  cursor: default;
+}
+
+.win98-title-bar.active {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: #fff;
+}
+
+.win98-title-bar.inactive {
+  background: #808080;
+  color: #c0c0c0;
+}
+
+.win98-title-bar-text {
+  font-size: 12px;
+  font-weight: bold;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Arial, sans-serif;
+  pointer-events: none;
+}
+
+.win98-title-bar-controls {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.win98-title-bar-controls button {
+  width: 16px;
+  height: 14px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  font-size: 9px;
+  line-height: 10px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer !important;
+  color: #000;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+.win98-title-bar-controls button[aria-label="Minimize"]::before { content: '_'; }
+.win98-title-bar-controls button[aria-label="Maximize"]::before { content: '□'; }
+.win98-title-bar-controls button[aria-label="Close"]::before { content: '✕'; font-size: 8px; }
+
+.win98-title-bar-controls button:active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+.win98-window-body {
+  flex: 1;
+  overflow: hidden;
+  background: #c0c0c0;
+}
+
+/* Scrollbar styling (Win98-like) */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c0c0c0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #808080;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+
+::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  height: 16px;
+  width: 16px;
+}
+
+/* Blink animation for BIOS cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Selection */
+::selection {
+  background: #000080;
+  color: #fff;
+}
+
+/* Focus outline */
+:focus {
+  outline: 1px dotted #000080;
+  outline-offset: 1px;
+}
+
+button:focus {
+  outline: 1px dotted #000080;
+}
+
+/* Make textarea look authentic */
+textarea {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* No selection on desktop */
+#desktop {
+  user-select: none;
+}
+
+/* Ensure taskbar stays on top */
+#taskbar {
+  z-index: 10000;
+}
