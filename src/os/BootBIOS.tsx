@@ -39,17 +39,19 @@ export function BootBIOS() {
 
   useEffect(() => {
     let i = 0;
+    let timer: ReturnType<typeof setTimeout>;
     const addLine = () => {
       if (i >= BIOS_LINES.length) {
-        setTimeout(() => setBootStage('splash'), 500);
+        timer = setTimeout(() => setBootStage('splash'), 500);
         return;
       }
-      setLines((prev) => [...prev, BIOS_LINES[i]]);
+      const line = BIOS_LINES[i];
+      setLines((prev) => [...prev, line]);
       const delay = BIOS_SPEEDS[i] || 80;
       i++;
-      setTimeout(addLine, delay);
+      timer = setTimeout(addLine, delay);
     };
-    setTimeout(addLine, 300);
+    timer = setTimeout(addLine, 300);
 
     // Skip boot on any key press for demo
     const handleSkip = () => {
@@ -58,6 +60,7 @@ export function BootBIOS() {
     window.addEventListener('keydown', handleSkip);
     window.addEventListener('click', handleSkip);
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('keydown', handleSkip);
       window.removeEventListener('click', handleSkip);
     };
