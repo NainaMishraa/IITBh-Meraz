@@ -231,7 +231,7 @@ the last 3% of the technical details"]
 [ ] Eat a vegetable
 [ ] Go outside (weather permitting, or just generally)
 [ ] Figure out real name situation
-[ ] Sleep (postponed)`
+[ ] sleep (postponed)`
       },
       'diary.txt': {
         name: 'diary.txt',

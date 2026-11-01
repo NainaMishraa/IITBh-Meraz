@@ -43,7 +43,7 @@ export function BSOD() {
         <br /><br />
         <div style={{ border: '1px solid #aaa', padding: '12px', background: 'rgba(255,255,255,0.05)', fontSize: '12px' }}>
           <strong>Error Details:</strong><br />
-          Exception: 0x0000DEAD — BLOCKCHAIN_NOT_FOUND<br />
+          Fatal exception: Blockchain not found (0x0000DEAD)<br />
           Module: SATOSHI.EXE version 0.0.1 (alpha)<br />
           Description: The mining operation encountered an unrecoverable state.<br />
           <br />
@@ -508,6 +508,16 @@ P.S. The Gandhi Hackathon is aptly named.
 -- also Gandhi (paraphrased)`
       }, 500, 380);
     },
+    failed: () => {
+      openWindow('notepad', 'Error', {
+        content: `⚠  Task failed successfully.
+
+The operation completed with 0 errors and 1 failure.
+Satoshi.exe is proud of you anyway.
+
+[ OK ]   [ Also OK ]   [ Cry ]`
+      }, 340, 200);
+    },
     crash: () => {
       triggerBSOD();
     },
@@ -552,6 +562,7 @@ Make sure you typed the name correctly, and then try again.
 To search for a file, click the Start button, and then click Find.
 
 Error code: 0x00000404 — NOT_SATOSHI_APPROVED
+Status: Task failed successfully.
 
 Try one of these instead:
 • bitcoin
@@ -560,6 +571,8 @@ Try one of these instead:
 • pizza
 • hack
 • crash
+• failed
+• latent
 • iitbhilai`
       }, 380, 280);
     }
