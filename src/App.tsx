@@ -9,6 +9,7 @@ import { LoginDialog } from './os/LoginDialog';
 import { Explorer } from './apps/explorer/Explorer';
 import { Notepad } from './apps/notepad/Notepad';
 import { Calculator } from './apps/calculator/Calculator';
+import { Paint } from './apps/paint/Paint';
 import { IExplorer } from './apps/ie/IExplorer';
 import { Outlook } from './apps/outlook/Outlook';
 import { Minesweeper } from './apps/games/minesweeper/Minesweeper';
@@ -30,6 +31,7 @@ function AppContent({ appId, props }: { appId: AppId; props?: Record<string, unk
   switch (appId) {
     case 'explorer': return <Explorer {...(props as any)} />;
     case 'notepad': return <Notepad {...(props as any)} />;
+    case 'paint': return <Paint />;
     case 'calculator': return <Calculator />;
     case 'ie': return <IExplorer />;
     case 'outlook': return <Outlook />;
