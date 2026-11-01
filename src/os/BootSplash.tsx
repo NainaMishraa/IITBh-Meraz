@@ -6,17 +6,28 @@ export function BootSplash() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const steps = [10, 25, 40, 55, 68, 79, 88, 95, 100];
+    const steps = [15, 35, 55, 75, 90, 100];
     let i = 0;
     const tick = () => {
       if (i >= steps.length) {
-        setTimeout(() => setBootStage('login'), 400);
+        setTimeout(() => setBootStage('login'), 200);
         return;
       }
       setProgress(steps[i++]);
-      setTimeout(tick, 280);
+      setTimeout(tick, 150);
     };
-    setTimeout(tick, 200);
+    setTimeout(tick, 100);
+
+    // Skip on click/key for demo
+    const handleSkip = () => {
+      setBootStage('login');
+    };
+    window.addEventListener('keydown', handleSkip);
+    window.addEventListener('click', handleSkip);
+    return () => {
+      window.removeEventListener('keydown', handleSkip);
+      window.removeEventListener('click', handleSkip);
+    };
   }, [setBootStage]);
 
   return (

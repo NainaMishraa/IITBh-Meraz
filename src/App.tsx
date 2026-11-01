@@ -20,7 +20,8 @@ import { FreeCell } from './apps/games/solitaire/FreeCell';
 import {
   BSOD, Clippy, Screensaver, VirusPopup, GenesisBlock,
   RunDialog, TaskManager, ShutdownDialog, AboutWindows,
-  ControlPanel, SystemProperties, MediaPlayer, ImageViewer
+  ControlPanel, SystemProperties, MediaPlayer, ImageViewer,
+  DialupDialog, Scandisk
 } from './eggs/EasterEggs';
 import '98.css';
 
@@ -48,6 +49,8 @@ function AppContent({ appId, props }: { appId: AppId; props?: Record<string, unk
     case 'systemprops': return <SystemProperties />;
     case 'mediaplayer': return <MediaPlayer />;
     case 'imageviewer': return <ImageViewer {...(props as any)} />;
+    case 'scandisk': return <Scandisk />;
+    case 'dialup': return <DialupDialog />;
     default: return <Notepad content={`App "${appId}" is not yet installed.\n\nError: Module not found.\n\n(This is also a metaphor.)`} />;
   }
 }

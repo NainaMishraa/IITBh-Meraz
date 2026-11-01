@@ -992,3 +992,151 @@ export function ImageViewer({ filename }: { filename?: string }) {
     </div>
   );
 }
+
+// Dial-up Dialog
+export function DialupDialog() {
+  const { setDialup } = useOSStore();
+  const [stage, setStage] = useState<'idle' | 'dialing' | 'connecting' | 'busy' | 'connected'>('idle');
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (stage === 'dialing') {
+      setTimeout(() => setStage('connecting'), 2000);
+    } else if (stage === 'connecting') {
+      const interval = setInterval(() => {
+        setProgress(p => {
+          if (p >= 100) {
+            clearInterval(interval);
+            setStage('busy');
+            return 100;
+          }
+          return p + Math.random() * 15;
+        });
+      }, 500);
+      return () => clearInterval(interval);
+    } else if (stage === 'busy') {
+      setTimeout(() => setStage('idle'), 2000);
+    }
+  }, [stage]);
+
+  const sounds = ['📞 khhhhhh', '📞 bong bong', '📞 shhhhhhh', '📞 screech', '📞 ding'];
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 99999,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+    }}>
+      <div style={{
+        background: '#c0c0c0', border: '2px solid', borderColor: '#fff #808080 #808080 #fff',
+        boxShadow: '4px 4px 0 #000', width: '380px', fontFamily: 'Arial', fontSize: '12px',
+      }}>
+        <div style={{ background: 'linear-gradient(to right, #000080, #1084d0)', color: '#fff', padding: '4px 8px', fontWeight: 'bold' }}>
+          📞 Dial-Up Connection
+        </div>
+        <div style={{ padding: '16px' }}>
+          {stage === 'idle' && (
+            <>
+              <div style={{ marginBottom: '12px' }}>
+                <strong>Phone number:</strong><br />
+                <input
+                  defaultValue="1-800-INTERNET"
+                  style={{ width: '100%', padding: '4px', marginTop: '4px', border: '2px inset #808080' }}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                <button onClick={() => setDialup(false)} style={{ padding: '4px 12px', cursor: 'pointer' }}>Cancel</button>
+                <button onClick={() => setStage('dialing')} style={{ padding: '4px 12px', cursor: 'pointer', background: '#00a000', color: '#fff' }}>Connect</button>
+              </div>
+            </>
+          )}
+          {stage === 'dialing' && (
+            <div style={{ textAlign: 'center', padding: '20px' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>📞</div>
+              <div>Dialing...</div>
+              <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#666', marginTop: '8px' }}>
+                {sounds[Math.floor(Date.now() / 500) % sounds.length]}
+              </div>
+            </div>
+          )}
+          {stage === 'connecting' && (
+            <div style={{ padding: '12px' }}>
+              <div style={{ marginBottom: '8px' }}>Connecting to ISP...</div>
+              <div style={{ height: '16px', background: '#fff', border: '2px inset #808080', marginBottom: '8px' }}>
+                <div style={{ height: '100%', background: '#000080', width: `${progress}%` }} />
+              </div>
+              <div style={{ fontSize: '11px', color: '#666' }}>Negotiating connection at 56k...</div>
+            </div>
+          )}
+          {stage === 'busy' && (
+            <div style={{ textAlign: 'center', padding: '20px' }}>
+              <div style={{ fontSize: '24px', marginBottom: '8px' }}>❌</div>
+              <div style={{ color: '#800', fontWeight: 'bold', marginBottom: '8px' }}>Line Busy</div>
+              <div style={{ fontSize: '11px', color: '#666' }}>
+                The number is busy.<br />
+                Satoshi is probably downloading something.<br />
+                Try again later.<br />
+                <br />
+                <em>(This is accurate to the 1998 experience.)</em>
+              </div>
+              <button onClick={() => { setStage('idle'); setProgress(0); }} style={{ marginTop: '12px', padding: '4px 12px', cursor: 'pointer' }}>
+                OK
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Scandisk/Defrag Joke
+export function Scandisk() {
+  const [progress, setProgress] = useState(0);
+  const [stage, setStage] = useState<'scanning' | 'done'>('scanning');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(p => {
+        if (p >= 100) {
+          clearInterval(interval);
+          setStage('done');
+          return 100;
+        }
+        return p + Math.random() * 3;
+      });
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, background: '#000080', color: '#fff',
+      fontFamily: 'Arial', fontSize: '14px', padding: '40px', zIndex: 99999,
+    }}>
+      <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <h2 style={{ marginTop: 0 }}>Scandisk</h2>
+        <div style={{ marginBottom: '20px' }}>
+          Scanning drive C: for errors...
+        </div>
+        <div style={{ height: '24px', background: '#000040', border: '2px inset #fff', marginBottom: '8px' }}>
+          <div style={{ height: '100%', background: '#0f0', width: `${progress}%` }} />
+        </div>
+        <div style={{ fontSize: '12px', marginBottom: '20px' }}>
+          {Math.floor(progress)}% complete
+        </div>
+        {stage === 'done' && (
+          <div style={{ background: '#000040', padding: '16px', border: '1px solid #0f0' }}>
+            <strong>Scan Complete!</strong><br /><br />
+            Found 21,000,000 fragments.<br />
+            Found 1 virus: your GPA.<br /><br />
+            The virus cannot be removed.<br />
+            It is hardcoded into your academic record.<br /><br />
+            Recommended action: Keep inventing money.<br />
+            Your GPA will become irrelevant anyway.<br /><br />
+            <em>— Scandisk 98</em>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

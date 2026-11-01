@@ -28,8 +28,8 @@ const BIOS_LINES = [
 ];
 
 const BIOS_SPEEDS = [
-  80, 80, 20, 80, 60, 60, 80, 80, 20,
-  80, 60, 60, 20, 80, 20, 80, 20, 80, 60, 60, 20, 80, 60,
+  30, 30, 10, 30, 20, 20, 30, 30, 10,
+  30, 20, 20, 10, 30, 10, 30, 10, 30, 20, 20, 10, 30, 20,
 ];
 
 export function BootBIOS() {
@@ -41,7 +41,7 @@ export function BootBIOS() {
     let i = 0;
     const addLine = () => {
       if (i >= BIOS_LINES.length) {
-        setTimeout(() => setBootStage('splash'), 1200);
+        setTimeout(() => setBootStage('splash'), 500);
         return;
       }
       setLines((prev) => [...prev, BIOS_LINES[i]]);
@@ -50,6 +50,17 @@ export function BootBIOS() {
       setTimeout(addLine, delay);
     };
     setTimeout(addLine, 300);
+
+    // Skip boot on any key press for demo
+    const handleSkip = () => {
+      setBootStage('splash');
+    };
+    window.addEventListener('keydown', handleSkip);
+    window.addEventListener('click', handleSkip);
+    return () => {
+      window.removeEventListener('keydown', handleSkip);
+      window.removeEventListener('click', handleSkip);
+    };
   }, [setBootStage]);
 
   return (

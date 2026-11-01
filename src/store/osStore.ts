@@ -6,7 +6,7 @@ export type AppId =
   | 'ie' | 'outlook' | 'controlpanel' | 'systemprops'
   | 'minesweeper' | 'solitaire' | 'snake' | 'pinball' | 'freecell'
   | 'taskmanager' | 'scandisk' | 'mediaplayer' | 'imageviewer'
-  | 'run' | 'shutdown' | 'about' | 'password';
+  | 'run' | 'shutdown' | 'about' | 'password' | 'dialup';
 
 export interface WindowState {
   id: string;

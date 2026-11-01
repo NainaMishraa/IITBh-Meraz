@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOSStore } from '../store/osStore';
 
 export function LoginDialog() {
@@ -9,21 +9,41 @@ export function LoginDialog() {
   const [cancelCount, setCancelCount] = useState(0);
   const [logging, setLogging] = useState(false);
 
+  useEffect(() => {
+    // Auto-login after 1.5 seconds for demo
+    const autoLogin = setTimeout(() => {
+      if (!logging) doLogin();
+    }, 1500);
+
+    const handleSkip = (e: KeyboardEvent) => {
+      if (!logging) {
+        e.preventDefault();
+        doLogin();
+      }
+    };
+    window.addEventListener('keydown', handleSkip);
+    return () => {
+      clearTimeout(autoLogin);
+      window.removeEventListener('keydown', handleSkip);
+    };
+  }, [logging]);
+
   const doLogin = () => {
     if (logging) return;
     setLogging(true);
-    setTimeout(login, 800);
+    setTimeout(login, 300);
   };
 
   const doCancel = () => {
+    if (logging) return;
     const next = cancelCount + 1;
     setCancelCount(next);
-    if (next >= 2) {
-      // "Cancel still logs in" — after pressing cancel twice, just boot in
-      setTimeout(login, 400);
+    if (next >= 1) {
+      // "Cancel still works" — pressing cancel once logs in
+      setTimeout(login, 300);
     } else {
       setWrong(true);
-      setTimeout(() => setWrong(false), 2000);
+      setTimeout(() => setWrong(false), 1500);
     }
   };
 
